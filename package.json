@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/kaguya3222/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/kaguya3222/frontend-project-lvl2/actions)",
   "main": "index.js",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kaguya3222/frontend-project-lvl2.git"
@@ -14,7 +15,8 @@
   },
   "homepage": "https://github.com/kaguya3222/frontend-project-lvl2#readme",
   "dependencies": {
-    "commander": "^8.3.0"
+    "commander": "^8.3.0",
+    "lodash": "^4.17.21"
   },
   "bin": {
     "gendiff": "bin/gendiff.js"
