@@ -1,4 +1,4 @@
-name: Main
+name: main
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  install-dependencies:
+  install-dependencies-lint:
     runs-on: 'ubuntu-latest'
 
     strategy:
