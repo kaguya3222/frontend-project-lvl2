@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import lodash from 'lodash';
+import _ from 'lodash';
 import { parseJson, parseYaml } from './parsers/index.js';
 
 const diffStatuses = {
@@ -53,7 +53,7 @@ export default (firstFilePath, secondFilePath) => {
     return acc;
   }, diffByFirstJson);
 
-  const sortedDiff = lodash.sortBy(diff, [([key]) => key]);
+  const sortedDiff = _.sortBy(diff, [([key]) => key]);
 
   const charsMap = {
     [diffStatuses.added]: '+',
