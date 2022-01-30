@@ -63,8 +63,8 @@ export default (firstFilePath, secondFilePath) => {
   const printedDiff = sortedDiff.reduce((acc, [key, line]) => {
     const char = charsMap[line.status] ?? ' ';
 
-    return `${acc}  ${char} ${key}: ${line.value} \n`;
+    return `${acc}  ${char} ${key}: ${line.value}\n`;
   }, '');
 
-  return `{ \n${printedDiff}}`;
+  return `{\n${printedDiff}}`;
 };
