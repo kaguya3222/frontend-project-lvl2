@@ -45,4 +45,4 @@ jobs:
         run: make install
 
       - name: Test (unit)
-        run: make test-unit
+        run: make test
