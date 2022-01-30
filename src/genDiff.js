@@ -1,11 +1,20 @@
 import path from 'path';
 import fs from 'fs';
 import lodash from 'lodash';
+import { parseJson, parseYaml } from './parsers/index.js';
 
 const diffStatuses = {
   deleted: 'deleted',
   steady: 'steady',
   added: 'added',
+};
+
+const yamlFileExtensions = ['.yaml', '.yml'];
+
+const getParser = (fileExtension) => {
+  if (yamlFileExtensions.includes(fileExtension)) return parseYaml;
+
+  return parseJson;
 };
 
 export default (firstFilePath, secondFilePath) => {
@@ -15,8 +24,10 @@ export default (firstFilePath, secondFilePath) => {
   const firstFile = fs.readFileSync(resolvedFirstFilePath);
   const secondFile = fs.readFileSync(resolvedSecondFilePath);
 
-  const firstJson = JSON.parse(firstFile);
-  const secondJson = JSON.parse(secondFile);
+  const parser = getParser(path.extname(firstFilePath));
+
+  const firstJson = parser(firstFile);
+  const secondJson = parser(secondFile);
 
   const diffByFirstJson = Object.entries(firstJson).reduce((acc, [key, value]) => {
     const isDeleted = !secondJson[key];
@@ -29,15 +40,15 @@ export default (firstFilePath, secondFilePath) => {
 
     return [
       ...acc,
-      [key, { status: diffStatuses.added, value }],
-      [key, { status: diffStatuses.deleted, value: secondJson[key] }],
+      [key, { status: diffStatuses.deleted, value }],
+      [key, { status: diffStatuses.added, value: secondJson[key] }],
     ];
   }, []);
 
   const diff = Object.entries(secondJson).reduce((acc, [key, value]) => {
-    const isDeleted = !firstJson[key];
+    const isAdded = !firstJson[key];
 
-    if (isDeleted) return [...acc, [key, { status: diffStatuses.deleted, value }]];
+    if (isAdded) return [...acc, [key, { status: diffStatuses.added, value }]];
 
     return acc;
   }, diffByFirstJson);

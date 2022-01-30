@@ -19,6 +19,7 @@
   "homepage": "https://github.com/kaguya3222/frontend-project-lvl2#readme",
   "dependencies": {
     "commander": "^8.3.0",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
   },
   "bin": {
